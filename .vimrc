@@ -7,20 +7,19 @@ call plug#begin('~/.vim/plugged')
 	Plug 'tpope/vim-fugitive'
 	Plug 'tpope/vim-sensible'
 	Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+	Plug 'preservim/tagbar'
 	Plug 'junegunn/fzf.vim'
 call plug#end()
 
 
-" vim config
-set autoindent
+syntax on
 filetype plugin indent on
+set autoindent
 set dir=/tmp
 set backupdir=/tmp
-syntax on
 set nowrap
 set splitright
 set splitbelow
-set nonumber
 set nohlsearch
 set incsearch
 set nolazyredraw
@@ -29,9 +28,15 @@ set timeoutlen=500
 set ttimeoutlen=20
 
 
-let mapleader = ","
-let g:go_fmt_command = "goimports"
+let mapleader = " "
 
-" vim-go mappings
+" vim-go conf
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>t <Plug>(go-test)
+let g:go_fmt_command = "goimports"
+
+" fzf conf
+nnoremap <C-p> :Files<Cr>
+nnoremap <C-b> :Buffers<Cr>
+noremap <c-]> :call fzf#vim#tags(expand('<cword>'))<cr>
+let g:fzf_tags_command = 'ctags -R'
