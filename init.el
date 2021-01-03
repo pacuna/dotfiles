@@ -41,7 +41,12 @@
   :config
   ;; Optionally enable completion-as-you-type behavior.
   (setq company-idle-delay 0)
-  (setq company-minimum-prefix-length 1))
+
+  (setq company-minimum-prefix-length 1)
+  (define-key company-active-map (kbd "M-n") nil)
+  (define-key company-active-map (kbd "M-p") nil)
+  (define-key company-active-map (kbd "C-n") #'company-select-next)
+  (define-key company-active-map (kbd "C-p") #'company-select-previous))
 
 ;; Optional - provides snippet support.
 (use-package yasnippet
@@ -54,7 +59,7 @@
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
-   '(doom-themes go-mode yasnippet company lsp-ui lsp-mode use-package)))
+   '(helm doom-themes go-mode yasnippet company lsp-ui lsp-mode use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
@@ -73,6 +78,18 @@
   (load-theme 'doom-molokai t)
   (doom-themes-org-config))
 
+(use-package helm
+  :ensure t
+  :bind (("M-x" . helm-M-x)
+         ("C-x C-f" . helm-find-files)
+         ([f10] . helm-buffers-list)
+         ([S-f10] . helm-recentf))
+  :config
+  (helm-mode 1))
+
+
 
 ;; other conf
 (menu-bar-mode -1)
+(setq backup-directory-alist '(("" . "~/.emacs.d/backup")))
+(setq create-lockfiles nil)
