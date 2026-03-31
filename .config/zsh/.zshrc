@@ -10,6 +10,7 @@ source $ZDOTDIR/functions.zsh
 # Tools
 source $ZDOTDIR/tools/fzf.zsh
 source $ZDOTDIR/tools/sdkman.zsh
+source $ZDOTDIR/tools/uv.zsh
 
 # Plugins — syntax-highlighting must be last
 source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
