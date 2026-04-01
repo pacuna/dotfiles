@@ -6,4 +6,5 @@ export PATH
 export EDITOR=vim
 export LANG=en_US.UTF-8
 
-. "$HOME/.local/bin/env"
+# private vars — never committed
+[[ -f $HOME/.zshenv.local ]] && source $HOME/.zshenv.local
