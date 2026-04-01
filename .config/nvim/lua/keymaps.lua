@@ -38,10 +38,10 @@ map("n", "<leader>fb", ":Telescope buffers<CR>")
 -- LSP (also set up in plugins.lua on_attach, but here for reference)
 map("n", "gd", vim.lsp.buf.definition)
 map("n", "gr", vim.lsp.buf.references)
-map("n", "K",  vim.lsp.buf.hover)
+map("n", "K", vim.lsp.buf.hover)
 map("n", "<leader>rn", vim.lsp.buf.rename)
 map("n", "<leader>ca", vim.lsp.buf.code_action)
-map("n", "<leader>f",  vim.lsp.buf.format)
+map("n", "<leader>f", vim.lsp.buf.format)
 
 -- Diagnostics
 map("n", "[d", vim.diagnostic.goto_prev)
