@@ -41,6 +41,7 @@ require("lazy").setup({
 					"yaml",
 					"markdown",
 					"vim",
+					"zig",
 				},
 				highlight = { enable = true },
 				indent = { enable = true },
@@ -59,7 +60,7 @@ require("lazy").setup({
 		config = function()
 			require("mason").setup()
 			require("mason-lspconfig").setup({
-				ensure_installed = { "lua_ls", "pyright", "ts_ls" },
+				ensure_installed = { "lua_ls", "pyright", "ts_ls", "zls" },
 				automatic_installation = true,
 			})
 
@@ -76,8 +77,9 @@ require("lazy").setup({
 					},
 				},
 			})
+			vim.lsp.config("zls", { capabilities = capabilities })
 
-			vim.lsp.enable({ "pyright", "ts_ls", "lua_ls" })
+			vim.lsp.enable({ "pyright", "ts_ls", "lua_ls", "zls" })
 		end,
 	},
 
@@ -163,6 +165,7 @@ require("lazy").setup({
 					json = { "prettier" },
 					yaml = { "prettier" },
 					markdown = { "prettier" },
+					zig = { "zigfmt" },
 				},
 				format_on_save = {
 					timeout_ms = 500,
@@ -194,6 +197,11 @@ require("lazy").setup({
 		end,
 	},
 
+	-- ── Language support ─────────────────────────────────────────────────────
+	{
+		"https://codeberg.org/ziglang/zig.vim",
+	},
+
 	-- ── QOL ──────────────────────────────────────────────────────────────────
 	{
 		"windwp/nvim-autopairs", -- auto close brackets
@@ -201,7 +209,17 @@ require("lazy").setup({
 	},
 	{
 		"numToStr/Comment.nvim", -- gcc to comment a line
-		config = true,
+		config = function()
+			require("Comment").setup({
+				pre_hook = function()
+					local ft = vim.bo.filetype
+					local commentstrings = {
+						zig = "// %s",
+					}
+					return commentstrings[ft]
+				end,
+			})
+		end,
 	},
 	{
 		"lewis6991/gitsigns.nvim", -- git indicators in the gutter
